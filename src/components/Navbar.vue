@@ -7,7 +7,7 @@
       <div class="col-6 mt-2">
         <router-link :to="'/home'" class="text-decoration-none navbar-link mx-3"> Home </router-link>
         <router-link :to="'/products'" class="text-decoration-none navbar-link mx-3"> Products </router-link>
-        <router-link :to="'/items'" class="text-decoration-none navbar-link mx-3">
+        <router-link to="/items" class="text-decoration-none navbar-link mx-3">
           Items &nbsp;
           <font-awesome-icon icon="cart-shopping"></font-awesome-icon>
           [{{ items.length }}]

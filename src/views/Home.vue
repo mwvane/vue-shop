@@ -11,7 +11,7 @@
     </div>
     <div class="products m-5">
       <div class="row justify-content-center">
-        <div class="col-3 my-3" v-for="product in products" :key="product.id">
+        <div class="col-12 col-md-6 col-lg-4 col-xl-3 my-3" v-for="product in products" :key="product.id">
           <product :product="product"></product>
         </div>
       </div>
@@ -23,7 +23,7 @@
 // @ is an alias to /src
 
 import Product from "@/components/Product";
-import {mapState, mapActions} from "vuex";
+import {mapState} from "vuex";
 
 export default {
   // eslint-disable-next-line vue/multi-word-component-names
@@ -34,12 +34,7 @@ export default {
   computed: {
     ...mapState(['products'])
   },
-  methods: {
-    ...mapActions(['getProducts'])
-  },
-  async mounted() {
-    await this.getProducts()
-  }
+
 }
 </script>
 

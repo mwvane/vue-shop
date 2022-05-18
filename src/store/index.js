@@ -8,25 +8,26 @@ const store = createStore({
     },
     getters: {},
     mutations: {
-        addItem(state, product) {
+        addItem(state, {product, quantity}) {
             const id = product.id;
             const item = state.items.find(item => item.id === id);
             if (!item) {
                 state.items.push({
                     id,
-                    quantity: 1
+                    quantity: quantity
                 })
             } else {
-                item.quantity++
+                item.quantity = quantity
             }
+
         },
         setProducts(state, products) {
             state.products = products
         }
     },
     actions: {
-        addItem({commit}, product) {
-            commit('addItem', product)
+        addItem({commit}, {product, quantity}) {
+            commit('addItem', {product, quantity})
         },
         async getProducts({commit}) {
             const products = await ProductsService.getProducts()
