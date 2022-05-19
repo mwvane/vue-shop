@@ -1,7 +1,7 @@
 <template>
   <div class="quantity-editor">
     <button class="quantity-btn" @click="decrement">-</button>
-    <span class="mx-2">{{ quantity }}</span>
+    <span class="mx-2">{{ localQuantity }}</span>
     <button class="quantity-btn" @click="increment">+</button>
   </div>
 </template>
@@ -11,20 +11,29 @@ export default {
   name: "QuantityEditor",
   data() {
     return {
-      quantity: 1
+      localQuantity: 0
     }
+  },
+  props:{
+    quantity: {
+      type: Number,
+      default: 1,
+    },
   },
   methods: {
     decrement() {
-      if (this.quantity > 1){
-        this.quantity--
-        this.$emit('pickValue',this.quantity)
+      if (this.localQuantity > 1){
+        this.localQuantity--
+        this.$emit('pickValue',this.localQuantity)
       }
     },
     increment() {
-      this.quantity++
-      this.$emit('pickValue',this.quantity)
+      this.localQuantity++
+      this.$emit('pickValue',this.localQuantity)
     }
+  },
+  mounted() {
+    this.localQuantity = this.quantity
   }
 }
 </script>

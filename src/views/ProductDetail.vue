@@ -24,7 +24,7 @@
 
 <script>
 import QuantityEditor from "@/components/QuantityEditor";
-import {mapState} from "vuex";
+import {mapActions, mapState} from "vuex";
 
 export default {
   name: "ProductDetail",
@@ -51,12 +51,13 @@ export default {
     this.totalPrice = this.item.price
   },
   methods:{
+    ...mapActions(["addItem"]),
     updateQuantity(val){
       this.quantity = val
       this.totalPrice = this.item.price * this.quantity
     },
     addToChart(){
-      alert(this.totalPrice)
+      this.addItem({id: this.item.id, quantity:this.quantity})
     }
   }
 }

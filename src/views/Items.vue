@@ -1,8 +1,9 @@
 <template>
   <div>
-    <h1>items</h1>
     <div v-for="item in items" :key="item.id">
-    <p>{{item}}</p>
+      <ChartItem :item="item">
+
+      </ChartItem>
     </div>
   </div>
 
@@ -10,10 +11,13 @@
 
 <script>
 import {mapState} from "vuex";
-
+import ChartItem from "@/components/ChartItem";
 export default {
   // eslint-disable-next-line vue/multi-word-component-names
   name: "Items",
+  components:{
+    ChartItem
+  },
   computed: {
     ...mapState(['products', "items"]),
   }

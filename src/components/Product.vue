@@ -7,11 +7,6 @@
       <div class="card-body">
         <p> {{ product.name }} </p>
         <p class="price"> ${{ product.price }} </p>
-        <div class="quantity-editor">
-          <button class="quantity-btn" @click="decrement">-</button>
-          <span class="mx-2">{{ quantity }}</span>
-          <button class="quantity-btn" @click="increment">+</button>
-        </div>
         <div class="product-buttons position-absolute" style="left: calc(50% - 60px); bottom: 20px">
           <div class="inner-product-buttons">
             <button class="product-button">
@@ -34,10 +29,11 @@
 <script>
 // eslint-disable-next-line no-unused-vars
 import {mapActions} from "vuex"
-
 export default {
   // eslint-disable-next-line vue/multi-word-component-names
   name: "Product",
+  components:{
+  },
   props: ['product'],
   data() {
     return {
@@ -57,7 +53,7 @@ export default {
     ...mapActions(['addItem']),
     buyProduct(e) {
       e.stopImmediatePropagation()
-      this.addItem({product: this.product, quantity: this.quantity})
+      this.addItem({id: this.product.id, quantity: this.quantity})
     },
     decrement(e) {
       e.stopImmediatePropagation()
