@@ -5,6 +5,10 @@ const store = createStore({
     state: {
         items: [],
         products: [],
+        productModal: {
+            show: false,
+            data: {},
+        }
     },
     getters: {},
     mutations: {
@@ -31,16 +35,24 @@ const store = createStore({
             this.state.items = this.state.items.filter(item => item.id !== itemID)
         },
         addProduct(state, product) {
-            this.state.products.push(product)
+            const maxId = state.products.reduce((finalValue, currentObject) => {
+                return Math.max(finalValue, currentObject.id)
+            }, 0);
+            this.state.products.push({...product, id: maxId + 1})
         },
-        updateProduct(state, {productID,newProduct}) {
-            let product = this.state.products.find(item => item.id === productID )
-            product = newProduct
-            console.log(product)
+        updateProduct(state, {productID, newProduct}) {
+            let productIndex = this.state.products.findIndex(item => item.id === productID)
+            this.state.products[productIndex] = {...newProduct}
         },
         removeProduct(state, productID) {
             this.state.products = this.state.products.filter(item => item.id !== productID)
         },
+        toggleProductModal(state, {flag, data}) {
+            state.productModal = {
+                show: flag,
+                data,
+            }
+        }
     },
     actions: {
         addItem({commit}, {id, quantity}) {
@@ -64,6 +76,9 @@ const store = createStore({
         },
         removeProduct({commit}, productID) {
             commit('removeProduct', productID)
+        },
+        toggleProductModal({commit}, {flag, data = {}}) {
+            commit('toggleProductModal', {flag, data})
         },
     }
 })

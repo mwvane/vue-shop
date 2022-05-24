@@ -1,7 +1,7 @@
 <template>
   <div class="text-center">
     <div class="card card-hoverable" @click="goToDetails">
-      <div class="card-header bg-white border-0">
+      <div class="card-header bg-white border-0" style="height: 200px; overflow: hidden">
         <img :src="imageUrl" style="width: 100%" :alt="`product-image-${product.name}`"/>
       </div>
       <div class="card-body">
@@ -29,12 +29,14 @@
 <script>
 // eslint-disable-next-line no-unused-vars
 import {mapActions} from "vuex"
+import mixin from "@/mixins";
 export default {
   // eslint-disable-next-line vue/multi-word-component-names
   name: "Product",
   components:{
   },
   props: ['product'],
+  mixins: [mixin],
   data() {
     return {
       quantity: 1
@@ -43,7 +45,7 @@ export default {
   ,
   computed: {
     imageUrl() {
-      return require('../assets/' + this.product.image)
+      return this.getProductImage(this.product)
     },
     productLink() {
       return '/product-detail/' + this.product.id

@@ -33,6 +33,7 @@
 import QuantityEditor from "@/components/QuantityEditor";
 import {mapState} from "vuex";
 import {mapActions} from "vuex";
+import mixin from "@/mixins";
 
 export default {
 name: "ChartItem",
@@ -44,10 +45,11 @@ name: "ChartItem",
       product: null
     }
   },
+  mixins: [mixin],
   computed:{
     ...mapState(["products"]),
     imageUrl() {
-      return require('../assets/' + this.product.image)
+      return this.getProductImage(this.product)
     },
     totalPrice(){
       return Math.round(this.product.price * this.item.quantity *100)/100
